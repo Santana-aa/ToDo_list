@@ -1,94 +1,253 @@
-*{
+
+/* ===== Global Reset ===== */
+* {
     margin: 0;
     padding: 0;
-    font-family: cursive;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', cursive, sans-serif;
 }
-body{
+
+body {
+    min-height: 100vh;
     display: flex;
     justify-content: center;
-    background-color: #35374B;
+    align-items: flex-start;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #25283f, #35374B, #263c45);
 }
-.todo-box{
-    max-width: 400px;
-    background-color: #50727B;
-    border-radius: 30px;
-    box-shadow: 30px 30px 75px rgb(0,0,0,0.25);
-    padding: 40px ;
-    margin: 100px auto 20px;
+
+/* ===== Main To-Do Card ===== */
+.todo-box {
+    width: 100%;
+    max-width: 480px;
+    background: linear-gradient(145deg, #50727B, #45636c);
+    border: 1px solid rgba(253, 255, 226, 0.15);
+    border-radius: 28px;
+    padding: 35px;
+    margin: 40px auto;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-h3{
+
+.todo-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.35);
+}
+
+/* ===== Heading ===== */
+h3 {
     font-size: 2rem;
     text-align: center;
-    color:  #FDFFE2;
-    font-weight: bold;
-    margin-bottom: 20px;
+    color: #FDFFE2;
+    font-weight: 700;
+    margin-bottom: 28px;
+    letter-spacing: 1px;
 }
-.row{
+
+/* ===== Input Row ===== */
+.row {
     display: flex;
     align-items: center;
-    gap:5%;
-    margin-bottom: 30px;
+    gap: 10px;
+    margin-bottom: 25px;
 }
-input{
-    width: 80%;
-    border: 0;
-    outline: 0;
+
+/* ===== Input Field ===== */
+input {
+    flex: 1;
+    min-width: 0;
+    border: 2px solid transparent;
+    outline: none;
     font-size: 1rem;
-    padding: 15px ;
+    padding: 14px 18px;
     border-radius: 30px;
-    box-shadow: 30px 30px 75px rgb(0,0,0,0.25);
     background-color: #FDFFE2;
-    
+    color: #35374B;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+    transition: border-color 0.25s, box-shadow 0.25s;
 }
-button{
-    width: 15%;
-    font-size: 1rem;
-    padding: 12px ;
-    border: 0;
-    outline: 0;
+
+input::placeholder {
+    color: #777c70;
+}
+
+input:focus {
+    border-color: #78b6b0;
+    box-shadow: 0 0 0 4px rgba(253, 255, 226, 0.15);
+}
+
+/* ===== Add Button ===== */
+button {
+    min-width: 70px;
+    border: none;
+    outline: none;
+    padding: 13px 18px;
     border-radius: 30px;
-    box-shadow: 30px 30px 75px rgb(0,0,0,0.25);
-    background-color:  #FDFFE2;
-}
-
-ul li{
-    list-style: none;
-    font-size: 1rem;
-    padding: 10px 8px 10px 40px;
-    user-select: none;
+    background: #FDFFE2;
+    color: #35374B;
+    font-size: 0.95rem;
+    font-weight: 700;
     cursor: pointer;
-    position: relative;
-    margin-block: 10px;  
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+    transition: background 0.25s, color 0.25s,
+                transform 0.2s, box-shadow 0.25s;
 }
 
-ul li::before{
+button:hover {
+    background: #dce8bd;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+/* ===== Task List ===== */
+ul {
+    list-style: none;
+}
+
+ul li {
+    list-style: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    margin: 12px 0;
+    padding: 12px 42px 12px 42px;
+    border: 1px solid rgba(253, 255, 226, 0.12);
+    border-radius: 16px;
+    color: #FDFFE2;
+    font-size: 1rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+    user-select: none;
+    background: rgba(255, 255, 255, 0.07);
+    transition: background 0.25s, transform 0.2s,
+                border-color 0.25s;
+}
+
+ul li:hover {
+    background: rgba(255, 255, 255, 0.13);
+    border-color: rgba(253, 255, 226, 0.3);
+    transform: translateX(3px);
+}
+
+/* ===== Unchecked Icon ===== */
+ul li::before {
     content: '';
     position: absolute;
-    height: 25px;
-    width: 25px;
+    height: 23px;
+    width: 23px;
     border-radius: 50%;
-    background: url(./uncheck.png);
+    background-image: url("./uncheck.png");
     background-size: cover;
-    position: center;
-    top: 10px;
-    left: 8px;
+    background-position: center;
+    background-repeat: no-repeat;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
 }
 
-ul li.check{
-    background-color: #FDFFE2;
-    border-radius: 30px;
+/* ===== Completed Task ===== */
+ul li.check {
+    color: #66746b;
+    background: #FDFFE2;
+    border-color: #FDFFE2;
+    text-decoration: line-through;
+    text-decoration-color: #7c9989;
 }
 
-ul li.check::before{
-    background: url(./check.png);
-    background-size: cover;
+ul li.check:hover {
+    background: #eef2d5;
 }
 
-ul li cross{
+ul li.check::before {
+    background-image: url("./check.png");
+}
+
+/* ===== Delete / Cross Button ===== */
+/* Supports either a span with class="cross"
+   or an element with class="cross". */
+ul li .cross,
+ul li span.cross,
+ul li cross {
     position: absolute;
-    top: 7px;
-    right: 0;
-    width: 25px;
-    font-size: 1.3rem;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #FDFFE2;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
 }
 
+ul li .cross:hover,
+ul li span.cross:hover,
+ul li cross:hover {
+    background: #e76f6f;
+    color: white;
+}
+
+/* ===== Keyboard Accessibility ===== */
+button:focus-visible,
+input:focus-visible,
+ul li .cross:focus-visible {
+    outline: 3px solid #dce8bd;
+    outline-offset: 3px;
+}
+
+/* ===== Responsive Layout ===== */
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+
+    .todo-box {
+        padding: 25px 18px;
+        margin: 30px auto;
+        border-radius: 22px;
+    }
+
+    h3 {
+        font-size: 1.7rem;
+    }
+
+    .row {
+        gap: 8px;
+    }
+
+    input {
+        padding: 13px 14px;
+        font-size: 0.95rem;
+    }
+
+    button {
+        min-width: 65px;
+        padding: 12px 14px;
+        font-size: 0.9rem;
+    }
+
+    ul li {
+        font-size: 0.95rem;
+    }
+}
+
+/* ===== Reduced Motion Preference ===== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}
